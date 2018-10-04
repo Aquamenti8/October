@@ -14,4 +14,6 @@ public class Dialogue  {
     public float TalkRange;
     public float HearRange;
 
+    public float typingSpeed;
+
 }

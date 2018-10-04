@@ -178,7 +178,7 @@ Prefab:
     - target: {fileID: 224634915807284124, guid: 91d94fe2176824941887c8f6c854f896,
         type: 2}
       propertyPath: m_SizeDelta.x
-      value: 100
+      value: 130
       objectReference: {fileID: 0}
     - target: {fileID: 224634915807284124, guid: 91d94fe2176824941887c8f6c854f896,
         type: 2}
@@ -213,7 +213,22 @@ Prefab:
     - target: {fileID: 224634915807284124, guid: 91d94fe2176824941887c8f6c854f896,
         type: 2}
       propertyPath: m_Pivot.y
-      value: 0.5
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 114612618289487772, guid: 91d94fe2176824941887c8f6c854f896,
+        type: 2}
+      propertyPath: m_FontData.m_Alignment
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 114612618289487772, guid: 91d94fe2176824941887c8f6c854f896,
+        type: 2}
+      propertyPath: m_Text
+      value: ' New text'
+      objectReference: {fileID: 0}
+    - target: {fileID: 114612618289487772, guid: 91d94fe2176824941887c8f6c854f896,
+        type: 2}
+      propertyPath: m_FontData.m_BestFit
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 91d94fe2176824941887c8f6c854f896, type: 2}
@@ -711,6 +726,12 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: Cinemachine.CinemachineBrain+VcamActivatedEvent, Cinemachine, Version=0.0.0.0,
       Culture=neutral, PublicKeyToken=null
+--- !u!114 &871963516 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 114612618289487772, guid: 91d94fe2176824941887c8f6c854f896,
+    type: 2}
+  m_PrefabInternal: {fileID: 169174206}
+  m_Script: {fileID: 708705254, guid: f70555f144d8491a825f0804e09c671c, type: 3}
 --- !u!1 &882439663
 GameObject:
   m_ObjectHideFlags: 0
@@ -1021,6 +1042,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2c2d38ef2ff9b924ab90c1604faf7edd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  dialogueBox: {fileID: 871963516}
+  typingSpeed: 0
 --- !u!4 &983817312
 Transform:
   m_ObjectHideFlags: 0
@@ -4238,10 +4261,10 @@ MonoBehaviour:
     sentences:
     - Hey there! You little kiddo
     - Yes youu, whatever u may be!
-    - Da not warry, it's common to be from random species around here. Fox-Rabbit?
-      Boring.
-    TalkRange: 0
-    HearRange: 0
+    - You know, it's common to be from random species around here. Fox-Rabbit? Boring.
+    TalkRange: 1
+    HearRange: 2
+    typingSpeed: 0.1
 --- !u!1 &2041517844
 GameObject:
   m_ObjectHideFlags: 0
