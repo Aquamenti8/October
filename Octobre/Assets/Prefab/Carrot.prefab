@@ -21,8 +21,10 @@ GameObject:
   - component: {fileID: 4162901969214030}
   - component: {fileID: 212426327256776904}
   - component: {fileID: 95295624648562038}
-  - component: {fileID: 58658020633072322}
-  m_Layer: 0
+  - component: {fileID: 50623579960858548}
+  - component: {fileID: 58306826535727810}
+  - component: {fileID: 114422480686704728}
+  m_Layer: 11
   m_Name: Carrot
   m_TagString: Collectable
   m_Icon: {fileID: 0}
@@ -36,13 +38,33 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1860819699752170}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -2.123, y: -0.706, z: 0}
+  m_LocalPosition: {x: -1.7281935, y: -0.69683194, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!58 &58658020633072322
+--- !u!50 &50623579960858548
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1860819699752170}
+  m_BodyType: 0
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 1
+  m_Material: {fileID: 6200000, guid: 52a718e9979e49846a79b782f92ae90a, type: 2}
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 4
+--- !u!58 &58306826535727810
 CircleCollider2D:
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
@@ -51,12 +73,12 @@ CircleCollider2D:
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
-  m_Radius: 0.095
+  m_Radius: 0.09
 --- !u!95 &95295624648562038
 Animator:
   serializedVersion: 3
@@ -75,6 +97,19 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &114422480686704728
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1860819699752170}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eb46258ec456ef24b8321190aadfc732, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  collectable:
+    name: Carrot
 --- !u!212 &212426327256776904
 SpriteRenderer:
   m_ObjectHideFlags: 1

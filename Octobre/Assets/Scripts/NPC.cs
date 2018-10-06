@@ -41,7 +41,6 @@ public class NPC : MonoBehaviour {
         {
             dia.dialogueBox.text = "";
             convOn = false;
-            //dia.StopAllCoroutines();
             dia.EndDialogue();
         }
         if (!convOn && dia.dialogueBox.text != "") dia.dialogueBox.text = "";

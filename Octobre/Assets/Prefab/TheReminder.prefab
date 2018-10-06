@@ -52,6 +52,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: faa1c411014603d4bbd334e46fe791f8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  item:
+  - Cherry
+  quantity: 04000000
+  Cherry: {fileID: 1315964586186276, guid: 1b4750643be52594faf34eab48e1bd5c, type: 2}
+  Carrot: {fileID: 1860819699752170, guid: 3af9aaa6a532fff40a98688d73de305b, type: 2}
 --- !u!114 &114509412243149202
 MonoBehaviour:
   m_ObjectHideFlags: 1

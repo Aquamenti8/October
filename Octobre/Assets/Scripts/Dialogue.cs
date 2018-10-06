@@ -15,5 +15,5 @@ public class Dialogue  {
     public float HearRange;
 
     public float typingSpeed;
-
+    public string addFace;
 }

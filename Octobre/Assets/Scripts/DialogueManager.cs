@@ -9,6 +9,7 @@ public class DialogueManager : MonoBehaviour {
     public Queue<string> sentences;
     public float typingSpeed;
 
+    private Dialogue m_dialogue;
     private string sentence;
 
 	// Use this for initialization
@@ -19,7 +20,7 @@ public class DialogueManager : MonoBehaviour {
     public void StartDialogue (Dialogue dialogue)
     {
         Debug.Log("Talks:" + dialogue.name);
-
+        m_dialogue = dialogue;
         sentences.Clear();
         typingSpeed = dialogue.typingSpeed;
 
@@ -46,6 +47,16 @@ public class DialogueManager : MonoBehaviour {
         {
             if (sentences.Count == 0)
             {
+                // ADD FACE!
+                InventoryReminder theRem = GameObject.Find("TheReminder").GetComponent<InventoryReminder>();
+                if(m_dialogue.addFace != "")
+                {
+                    if (!theRem.faces.Contains(m_dialogue.addFace))
+                    {
+                        theRem.faces.Add(m_dialogue.addFace);
+                    }
+                    foreach (string face in theRem.faces) { Debug.Log(face); }
+                }
                 EndDialogue();
                 return;
             }

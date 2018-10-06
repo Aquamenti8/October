@@ -12,12 +12,12 @@ public class PickupCircle : MonoBehaviour {
     private GameObject actionCollider;
 
     public InventoryReminder theReminder;
-    public GameObject menu;
-
+    public GameObject Menu;
+    public string activeMenu;
 
   
     //Detect objects
-    private void OnTriggerStay2D(Collider2D other)
+    void OnTriggerStay2D(Collider2D other)
     {
         if (other.CompareTag("Collectable"))
         {
@@ -26,18 +26,27 @@ public class PickupCircle : MonoBehaviour {
             //Collect object
             if (Input.GetMouseButtonDown(0))
             {
+                
+                string ItemToCollectName = other.gameObject.GetComponent<ITEM>().collectable.name;
                Destroy(other.gameObject);
-                Debug.Log("Collect!");
+                
 
-                theReminder.PickupCollectable(other.gameObject.name);
+                theReminder.PickupCollectable(ItemToCollectName);
                 this.GetComponent<MenuBehaviour>().RollMenu();
                 this.GetComponent<MenuBehaviour>().UpdateSprite();
+                
+                Debug.Log("Collect!");
             }
         }
         else
         {
             questionMark.SetActive(false);
         }
+    }
+
+    void Start()
+    {
+        activeMenu = "";
     }
 
     //GetInputs
@@ -51,16 +60,38 @@ public class PickupCircle : MonoBehaviour {
             
         }
 
-        if (Input.GetMouseButtonDown(1)) //Open menu
+        if (Input.GetMouseButtonDown(1)) //OPEN MENU
         {
-            if (menu.activeSelf) 
-            {
-                menu.SetActive(false);
-            }
-            else {
-                menu.SetActive(true);
-            }
+            if (activeMenu == "") { activeMenu = "Main"; Menu.SetActive(true); }
+            else { activeMenu = ""; Menu.SetActive(false); }
         }
 
+        if (Input.GetMouseButtonDown(0) && activeMenu == "Main")
+        {
+            if( this.GetComponent<MenuBehaviour>().current == 0) // si c'est CALL
+            {
+                //OPEN CALL
+                activeMenu = "Call";
+            }
+            if (this.GetComponent<MenuBehaviour>().current == 1) // si c'est INVENTORY
+            {
+                //OPEN INVENTORY
+                activeMenu = "Inventory";
+            }
+            if (this.GetComponent<MenuBehaviour>().current == 2) // si c'est SLEEP
+            {
+                //SLEEP
+            }
+        }
+        if (Input.GetMouseButtonDown(0) && activeMenu == "Inventory")
+        {
+            theReminder.UseCollectable(this.GetComponent<MenuBehaviour>().current);
+            this.GetComponent<MenuBehaviour>().RollMenu();
+            this.GetComponent<MenuBehaviour>().UpdateSprite();
+            activeMenu = "";
+            Menu.SetActive(false);
+        }
     }
+
+
 }
