@@ -11,4 +11,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/SetupDevtober.unity
     guid: 085c3cfacae9f4d47b65da1ada038d3f
+  - enabled: 1
+    path: Assets/Scenes/Mokup1.unity
+    guid: 36292e9330ffc124eaafd07682a990f2
   m_configObjects: {}

@@ -52,7 +52,7 @@ public class PickupCircle : MonoBehaviour {
     //GetInputs
     private void Update()
     {
-        theReminder = GameObject.Find("TheReminder").GetComponent<InventoryReminder>();
+d
         if (Input.GetKeyDown(KeyCode.C))
         {
             theReminder.CleanInventory();
