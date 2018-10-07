@@ -914,8 +914,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fb35d4f0e99752248a492b3f446a5722, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  reminder: {fileID: 1442342656699242, guid: 02a40a066561fb24f9689dc1b916c242, type: 2}
-  Inv: {fileID: 114350943406219264, guid: 02a40a066561fb24f9689dc1b916c242, type: 2}
+  reminder: {fileID: 0}
+  Inv: {fileID: 0}
   Slot1: {fileID: 1023554737409904}
   Slot1Item: {fileID: 1674357231579088}
   Slot1Quantity: {fileID: 114607328716118412}
@@ -1153,8 +1153,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   questionMark: {fileID: 1897064791463210}
-  theReminder: {fileID: 114350943406219264, guid: 02a40a066561fb24f9689dc1b916c242,
-    type: 2}
+  theReminder: {fileID: 0}
   Menu: {fileID: 1574085206292136}
   activeMenu: 
 --- !u!212 &212002101738158012

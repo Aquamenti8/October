@@ -451,11 +451,6 @@ Prefab:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 114350943406219264, guid: 02a40a066561fb24f9689dc1b916c242,
-        type: 2}
-      propertyPath: mainOptions.Array.size
-      value: 3
-      objectReference: {fileID: 0}
     - target: {fileID: 4845577013939098, guid: 02a40a066561fb24f9689dc1b916c242, type: 2}
       propertyPath: m_LocalPosition.x
       value: -0.80111897
@@ -487,21 +482,6 @@ Prefab:
     - target: {fileID: 4845577013939098, guid: 02a40a066561fb24f9689dc1b916c242, type: 2}
       propertyPath: m_RootOrder
       value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 114350943406219264, guid: 02a40a066561fb24f9689dc1b916c242,
-        type: 2}
-      propertyPath: mainOptions.Array.data[0]
-      value: Call
-      objectReference: {fileID: 0}
-    - target: {fileID: 114350943406219264, guid: 02a40a066561fb24f9689dc1b916c242,
-        type: 2}
-      propertyPath: mainOptions.Array.data[1]
-      value: Inventory
-      objectReference: {fileID: 0}
-    - target: {fileID: 114350943406219264, guid: 02a40a066561fb24f9689dc1b916c242,
-        type: 2}
-      propertyPath: mainOptions.Array.data[2]
-      value: Sleep
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 02a40a066561fb24f9689dc1b916c242, type: 2}

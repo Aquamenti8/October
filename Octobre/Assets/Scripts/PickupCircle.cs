@@ -52,6 +52,7 @@ public class PickupCircle : MonoBehaviour {
     //GetInputs
     private void Update()
     {
+        theReminder = GameObject.Find("TheReminder").GetComponent<InventoryReminder>();
         if (Input.GetKeyDown(KeyCode.C))
         {
             theReminder.CleanInventory();
@@ -62,27 +63,15 @@ public class PickupCircle : MonoBehaviour {
 
         if (Input.GetMouseButtonDown(1)) //OPEN MENU
         {
-            if (activeMenu == "") { activeMenu = "Main"; Menu.SetActive(true); }
+            if (activeMenu == "") {
+                Menu.SetActive(true);
+                activeMenu = "Main";
+                this.GetComponent<MenuBehaviour>().ChangeCurrent(0);
+                this.GetComponent<MenuBehaviour>().UpdateSprite();
+            }
             else { activeMenu = ""; Menu.SetActive(false); }
         }
 
-        if (Input.GetMouseButtonDown(0) && activeMenu == "Main")
-        {
-            if( this.GetComponent<MenuBehaviour>().current == 0) // si c'est CALL
-            {
-                //OPEN CALL
-                activeMenu = "Call";
-            }
-            if (this.GetComponent<MenuBehaviour>().current == 1) // si c'est INVENTORY
-            {
-                //OPEN INVENTORY
-                activeMenu = "Inventory";
-            }
-            if (this.GetComponent<MenuBehaviour>().current == 2) // si c'est SLEEP
-            {
-                //SLEEP
-            }
-        }
         if (Input.GetMouseButtonDown(0) && activeMenu == "Inventory")
         {
             theReminder.UseCollectable(this.GetComponent<MenuBehaviour>().current);
@@ -91,6 +80,30 @@ public class PickupCircle : MonoBehaviour {
             activeMenu = "";
             Menu.SetActive(false);
         }
+
+        if (Input.GetMouseButtonDown(0) && activeMenu == "Main")
+        {
+            if( this.GetComponent<MenuBehaviour>().current == 0) // si c'est CALL
+            {
+                //OPEN CALL
+                activeMenu = "Call";
+                this.GetComponent<MenuBehaviour>().ChangeCurrent(0);
+                this.GetComponent<MenuBehaviour>().UpdateSprite();
+
+            }
+            if (this.GetComponent<MenuBehaviour>().current == 1) // si c'est INVENTORY
+            {
+                //OPEN INVENTORY
+                activeMenu = "Inventory";
+                this.GetComponent<MenuBehaviour>().ChangeCurrent(0);
+                this.GetComponent<MenuBehaviour>().UpdateSprite();
+            }
+            if (this.GetComponent<MenuBehaviour>().current == 2) // si c'est SLEEP
+            {
+                //SLEEP
+            }
+        }
+        
     }
 
 

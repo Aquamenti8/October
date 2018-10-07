@@ -85,10 +85,11 @@ public class MenuBehaviour : MonoBehaviour {
     public Sprite Inventory;
     public Sprite Sleep;
 
-    private string activeMenu;
+    //private string activeMenu;
 
     // Use this for initialization
     void Start () {
+        reminder = GameObject.Find("TheReminder");
         Inv = reminder.GetComponent<InventoryReminder>();
         current = 0;
         p1 = 0;
@@ -130,9 +131,9 @@ public class MenuBehaviour : MonoBehaviour {
     public int PlusOne(int index)
     {
         int activeList = 0;
-        if (activeMenu == "Inventory") activeList = Inv.item.Count;
-        else if (activeMenu == "Call") activeList = Inv.faces.Count;
-        else if (activeMenu == "Main") activeList = Inv.mainOptions.Count;
+        if (this.GetComponent<PickupCircle>().activeMenu == "Inventory") activeList = Inv.item.Count;
+        else if (this.GetComponent<PickupCircle>().activeMenu == "Call") activeList = Inv.faces.Count;
+        else if (this.GetComponent<PickupCircle>().activeMenu == "Main") activeList = Inv.mainOptions.Count;
         else activeList = Inv.mainOptions.Count;
 
         int newIndex = index+1;
@@ -147,9 +148,9 @@ public class MenuBehaviour : MonoBehaviour {
     public int MinusOne(int index)
     {
         List<string> activeList = null;
-        if (activeMenu == "Inventory") activeList = Inv.item;
-        else if (activeMenu == "Call") activeList = Inv.faces;
-        else if (activeMenu == "Main") activeList = Inv.mainOptions;
+        if (this.GetComponent<PickupCircle>().activeMenu == "Inventory") activeList = Inv.item;
+        else if (this.GetComponent<PickupCircle>().activeMenu == "Call") activeList = Inv.faces;
+        else if (this.GetComponent<PickupCircle>().activeMenu == "Main") activeList = Inv.mainOptions;
         else activeList = Inv.mainOptions;
 
         int newIndex = index - 1;
@@ -178,20 +179,7 @@ public class MenuBehaviour : MonoBehaviour {
 
             if (Mathf.Sign(Scroll) == 1)
             {
-                current = PlusOne(current);
-
-                posrem = pos5;
-                pos5 = pos4;
-                pos4 = pos3;
-                pos3 = pos2;
-                pos2 = pos1;
-                pos1 = posrem;
-                posrem = null;
-
-            }
-            else
-            {
-                current = MinusOne(current);
+                ChangeCurrent(PlusOne(current));
 
                 posrem = pos1;
                 pos1 = pos2;
@@ -202,26 +190,43 @@ public class MenuBehaviour : MonoBehaviour {
                 posrem = null;
 
             }
-            p1 = PlusOne(current);
-            p2 = PlusOne(PlusOne(current));
-            m1 = MinusOne(current);
-            m2 = MinusOne(MinusOne(current));
+            else
+            {
+                ChangeCurrent( MinusOne(current));
+
+                posrem = pos5;
+                pos5 = pos4;
+                pos4 = pos3;
+                pos3 = pos2;
+                pos2 = pos1;
+                pos1 = posrem;
+                posrem = null;
+                
+
+            }
+           
 
            
             UpdateSprite();
 
         }
-        p1 = PlusOne(current);
-        p2 = PlusOne(PlusOne(current));
-        m1 = MinusOne(current);
-        m2 = MinusOne(MinusOne(current));
+        ChangeCurrent(current);
 
 
     }
 
+    public void ChangeCurrent(int newCurrent)
+    {
+        current = newCurrent;
+        p1 = PlusOne(current);
+        p2 = PlusOne(PlusOne(current));
+        m1 = MinusOne(current);
+        m2 = MinusOne(MinusOne(current));
+    }
+
     public void UpdateSprite()
     {
-        if (activeMenu == "Inventory")
+        if (this.GetComponent<PickupCircle>().activeMenu == "Inventory")
         {
             //CHANGE SPRITE
             //si c'est un scroll positif, les slots changent de position en positif, pos1 devient pos2 ect
@@ -304,69 +309,69 @@ public class MenuBehaviour : MonoBehaviour {
                 else SlotQTemp.text = (Inv.quantity[m1].ToString());
             }
         }
-        else if (activeMenu == "Main")
+        else if (this.GetComponent<PickupCircle>().activeMenu == "Main")
         {
-            if (Slot1 = pos1) SlotMainSprite(Slot1, current);
-            else if (Slot1 = pos2) SlotMainSprite(Slot1, p1);
-            else if (Slot1 = pos3) SlotMainSprite(Slot1, p2);
-            else if (Slot1 = pos4) SlotMainSprite(Slot1, m2);
-            else if (Slot1 = pos5) SlotMainSprite(Slot1, m1);
+            if (Slot1 == pos1) SlotMainSprite(Slot1, current);
+            else if (Slot1 == pos2) SlotMainSprite(Slot1, p1);
+            else if (Slot1 == pos3) SlotMainSprite(Slot1, p2);
+            else if (Slot1 == pos4) SlotMainSprite(Slot1, m2);
+            else if (Slot1 == pos5) SlotMainSprite(Slot1, m1);
 
-            if (Slot2 = pos1) SlotMainSprite(Slot1, current);
-            else if (Slot2 = pos2) SlotMainSprite(Slot2, p1);
-            else if (Slot2 = pos3) SlotMainSprite(Slot2, p2);
-            else if (Slot2 = pos4) SlotMainSprite(Slot2, m2);
-            else if (Slot2 = pos5) SlotMainSprite(Slot2, m1);
+            if (Slot2 == pos1) SlotMainSprite(Slot2, current);
+            else if (Slot2 == pos2) SlotMainSprite(Slot2, p1);
+            else if (Slot2 == pos3) SlotMainSprite(Slot2, p2);
+            else if (Slot2 == pos4) SlotMainSprite(Slot2, m2);
+            else if (Slot2 == pos5) SlotMainSprite(Slot2, m1);
 
-            if (Slot3 = pos1) SlotMainSprite(Slot3, current);
-            else if (Slot3 = pos2) SlotMainSprite(Slot3, p1);
-            else if (Slot3 = pos3) SlotMainSprite(Slot3, p2);
-            else if (Slot3 = pos4) SlotMainSprite(Slot3, m2);
-            else if (Slot3 = pos5) SlotMainSprite(Slot3, m1);
+            if (Slot3 == pos1) SlotMainSprite(Slot3, current);
+            else if (Slot3 == pos2) SlotMainSprite(Slot3, p1);
+            else if (Slot3 == pos3) SlotMainSprite(Slot3, p2);
+            else if (Slot3 == pos4) SlotMainSprite(Slot3, m2);
+            else if (Slot3 == pos5) SlotMainSprite(Slot3, m1);
 
-            if (Slot4 = pos1) SlotMainSprite(Slot4, current);
-            else if (Slot4 = pos2) SlotMainSprite(Slot4, p1);
-            else if (Slot4 = pos3) SlotMainSprite(Slot4, p2);
-            else if (Slot4 = pos4) SlotMainSprite(Slot4, m2);
-            else if (Slot4 = pos5) SlotMainSprite(Slot4, m1);
+            if (Slot4 == pos1) SlotMainSprite(Slot4, current);
+            else if (Slot4 == pos2) SlotMainSprite(Slot4, p1);
+            else if (Slot4 == pos3) SlotMainSprite(Slot4, p2);
+            else if (Slot4 == pos4) SlotMainSprite(Slot4, m2);
+            else if (Slot4 == pos5) SlotMainSprite(Slot4, m1);
 
-            if (Slot5 = pos1) SlotMainSprite(Slot1, current);
-            else if (Slot5 = pos2) SlotMainSprite(Slot5, p1);
-            else if (Slot5 = pos3) SlotMainSprite(Slot5, p2);
-            else if (Slot5 = pos4) SlotMainSprite(Slot5, m2);
-            else if (Slot5 = pos5) SlotMainSprite(Slot5, m1);
+            if (Slot5 == pos1) SlotMainSprite(Slot5, current);
+            else if (Slot5 == pos2) SlotMainSprite(Slot5, p1);
+            else if (Slot5 == pos3) SlotMainSprite(Slot5, p2);
+            else if (Slot5 == pos4) SlotMainSprite(Slot5, m2);
+            else if (Slot5 == pos5) SlotMainSprite(Slot5, m1);
         }
-        else if (activeMenu == "Call")
+        else if (this.GetComponent<PickupCircle>().activeMenu == "Call")
         {
-            if(Slot1 = pos1) SlotFaceSprite(Slot1, current);
-            else if (Slot1 = pos2) SlotFaceSprite(Slot1, p1);
-            else if (Slot1 = pos3) SlotFaceSprite(Slot1, p2);
-            else if (Slot1 = pos4) SlotFaceSprite(Slot1, m2);
-            else if (Slot1 = pos5) SlotFaceSprite(Slot1, m1);
+            if(Slot1 == pos1) SlotFaceSprite(Slot1, current);
+            else if (Slot1 == pos2) SlotFaceSprite(Slot1, p1);
+            else if (Slot1 == pos3) SlotFaceSprite(Slot1, p2);
+            else if (Slot1 == pos4) SlotFaceSprite(Slot1, m2);
+            else if (Slot1 == pos5) SlotFaceSprite(Slot1, m1);
 
-            if (Slot2 = pos1) SlotFaceSprite(Slot1, current);
-            else if (Slot2 = pos2) SlotFaceSprite(Slot2, p1);
-            else if (Slot2 = pos3) SlotFaceSprite(Slot2, p2);
-            else if (Slot2 = pos4) SlotFaceSprite(Slot2, m2);
-            else if (Slot2 = pos5) SlotFaceSprite(Slot2, m1);
+            if (Slot2 == pos1) SlotFaceSprite(Slot2, current);
+            else if (Slot2 == pos2) SlotFaceSprite(Slot2, p1);
+            else if (Slot2 == pos3) SlotFaceSprite(Slot2, p2);
+            else if (Slot2 == pos4) SlotFaceSprite(Slot2, m2);
+            else if (Slot2 == pos5) SlotFaceSprite(Slot2, m1);
 
-            if (Slot3 = pos1) SlotFaceSprite(Slot3, current);
-            else if (Slot3 = pos2) SlotFaceSprite(Slot3, p1);
-            else if (Slot3 = pos3) SlotFaceSprite(Slot3, p2);
-            else if (Slot3 = pos4) SlotFaceSprite(Slot3, m2);
-            else if (Slot3 = pos5) SlotFaceSprite(Slot3, m1);
+            if (Slot3 == pos1) SlotFaceSprite(Slot3, current);
+            else if (Slot3 == pos2) SlotFaceSprite(Slot3, p1);
+            else if (Slot3 == pos3) SlotFaceSprite(Slot3, p2);
+            else if (Slot3 == pos4) SlotFaceSprite(Slot3, m2);
+            else if (Slot3 == pos5) SlotFaceSprite(Slot3, m1);
 
-            if (Slot4 = pos1) SlotFaceSprite(Slot4, current);
-            else if (Slot4 = pos2) SlotFaceSprite(Slot4, p1);
-            else if (Slot4 = pos3) SlotFaceSprite(Slot4, p2);
-            else if (Slot4 = pos4) SlotFaceSprite(Slot4, m2);
-            else if (Slot4 = pos5) SlotFaceSprite(Slot4, m1);
+            if (Slot4 == pos1) SlotFaceSprite(Slot4, current);
+            else if (Slot4 == pos2) SlotFaceSprite(Slot4, p1);
+            else if (Slot4 == pos3) SlotFaceSprite(Slot4, p2);
+            else if (Slot4 == pos4) SlotFaceSprite(Slot4, m2);
+            else if (Slot4 == pos5) SlotFaceSprite(Slot4, m1);
 
-            if (Slot5 = pos1) SlotFaceSprite(Slot1, current);
-            else if (Slot5 = pos2) SlotFaceSprite(Slot5, p1);
-            else if (Slot5 = pos3) SlotFaceSprite(Slot5, p2);
-            else if (Slot5 = pos4) SlotFaceSprite(Slot5, m2);
-            else if (Slot5 = pos5) SlotFaceSprite(Slot5, m1);
+            if (Slot5 == pos1) SlotFaceSprite(Slot5, current);
+            else if (Slot5 == pos2) SlotFaceSprite(Slot5, p1);
+            else if (Slot5 == pos3) SlotFaceSprite(Slot5, p2);
+            else if (Slot5 == pos4) SlotFaceSprite(Slot5, m2);
+            else if (Slot5 == pos5) SlotFaceSprite(Slot5, m1);
         }
     }
 
@@ -421,8 +426,9 @@ public class MenuBehaviour : MonoBehaviour {
     // Update is called once per frame
     void Update () {
 
+        //Inv = reminder.GetComponent<InventoryReminder>();
 
-        if (activeMenu != "")
+        if (this.GetComponent<PickupCircle>().activeMenu != "")
         {
             if (Input.GetAxis("Mouse ScrollWheel") != 0)
             {
@@ -523,21 +529,27 @@ public class MenuBehaviour : MonoBehaviour {
             }
         }
 
-        activeMenu = this.GetComponent<PickupCircle>().activeMenu;
-        /*
-        if (this.GetComponent<PickupCircle>().mainMenu.activeSelf) activeMenu = "Main";
-        else if (this.GetComponent<PickupCircle>().menuInventory.activeSelf) activeMenu = "Inventory";
-        else if (this.GetComponent<PickupCircle>().menuCall.activeSelf) activeMenu = "Call";
-        else activeMenu = "";
-        */
-
-        if (activeMenu != "Inventory")
+        if (this.GetComponent<PickupCircle>().activeMenu != "Inventory")
         {
             Slot1Quantity.text = "";
             Slot2Quantity.text = "";
             Slot3Quantity.text = "";
             Slot4Quantity.text = "";
             Slot5Quantity.text = "";
+
+            Slot1Item.SetActive(false);
+            Slot2Item.SetActive(false);
+            Slot3Item.SetActive(false);
+            Slot4Item.SetActive(false);
+            Slot5Item.SetActive(false);
+        }
+        else
+        {
+            Slot1Item.SetActive(true);
+            Slot2Item.SetActive(true);
+            Slot3Item.SetActive(true);
+            Slot4Item.SetActive(true);
+            Slot5Item.SetActive(true);
         }
     }
 }

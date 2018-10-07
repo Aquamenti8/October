@@ -12,6 +12,7 @@ public class InventoryReminder : MonoBehaviour {
 
     public List<string> mainOptions;
 
+    private static bool created = false;
     // Use this for initialization
     void Awake()
     {
@@ -25,8 +26,17 @@ public class InventoryReminder : MonoBehaviour {
         mainOptions.Add("Call");
         mainOptions.Add("Inventory");
         mainOptions.Add("Sleep");
-        
-    }
+
+        faces.Add("Unknown");
+
+        if (!created)
+        {
+            DontDestroyOnLoad(this.gameObject);
+            created = true;
+            Debug.Log("Awake: " + this.gameObject);
+        }
+    
+}
 
 
     // Update is called once per frame
