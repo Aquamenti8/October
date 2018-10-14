@@ -19,6 +19,12 @@ public class Player_movment : MonoBehaviour {
         {
             jump = true;
         }
+
+        //GetComponent<Animator>().SetFloat("Movement", horizontalMove);
+        bool run;
+        if (horizontalMove == 0) run = false;
+        else run = true;
+        GetComponent<Animator>().SetBool("Run", run);
 	}
 
     void FixedUpdate()

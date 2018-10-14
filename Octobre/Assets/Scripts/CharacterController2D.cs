@@ -61,9 +61,9 @@ public class CharacterController2D : MonoBehaviour
 
 	public void Move(float move, bool jump)
 	{
-
-		//only control the player if grounded or airControl is turned on
-		if (m_Grounded || m_AirControl)
+        if (GetComponent<Animator>().GetBool("flip") == true) GetComponent<Animator>().SetBool("flip", false);
+        //only control the player if grounded or airControl is turned on
+        if (m_Grounded || m_AirControl)
 		{
 
 			// Move the character by finding the target velocity
@@ -89,6 +89,7 @@ public class CharacterController2D : MonoBehaviour
 
 	private void Flip()
 	{
+        GetComponent<Animator>().SetBool("flip", true);
 		m_FacingRight = !m_FacingRight;
         mySpriteRenderer.flipX = !mySpriteRenderer.flipX;
 	}

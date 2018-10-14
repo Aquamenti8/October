@@ -104,18 +104,18 @@ public class MenuBehaviour : MonoBehaviour {
         pos5 = Slot5;
 
         pos1X = 0f;
-        pos1Y = 0.23f;
+        pos1Y = 0.3f;
 
-        pos2X = 0.15f;
+        pos2X = 0.2f;
         pos2Y = 0.15f;
 
-        pos3X = 0.1f;
-        pos3Y = -0.01f;
+        pos3X = 0.15f;
+        pos3Y = -0.05f;
 
-        pos4X = -0.1f;
-        pos4Y = -0.01f;
+        pos4X = -0.15f;
+        pos4Y = -0.05f;
 
-        pos5X = -0.15f;
+        pos5X = -0.2f;
         pos5Y = 0.15f;
 
         sp1 = Slot1.GetComponent<SpriteRenderer>().sprite;
@@ -402,7 +402,7 @@ public class MenuBehaviour : MonoBehaviour {
                 case "Kolimo":
                     SlotTemp.GetComponent<SpriteRenderer>().sprite = Mask1;
                     break;
-                case "Bernie":
+                case "Keeper":
                 SlotTemp.GetComponent<SpriteRenderer>().sprite = Mask2;
                     break;
         }

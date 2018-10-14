@@ -19,7 +19,7 @@ public class DialogueManager : MonoBehaviour {
 	
     public void StartDialogue (Dialogue dialogue)
     {
-        Debug.Log("Talks:" + dialogue.name);
+        Debug.Log("Talks:");
         m_dialogue = dialogue;
         sentences.Clear();
         typingSpeed = dialogue.typingSpeed;
@@ -30,6 +30,7 @@ public class DialogueManager : MonoBehaviour {
         }
 
         DisplayNextSentence();
+
     }
 
     public void DisplayNextSentence()
@@ -37,10 +38,8 @@ public class DialogueManager : MonoBehaviour {
         //si il a pas fini de type er qu'il a pas pas commencé, fini de type
         if ((dialogueBox.text != " " + sentence ) && (dialogueBox.text != "") && (dialogueBox.text != sentence))
         {
-           
-           // IEnumerator stillType = Type();
+          
             StopAllCoroutines();
-            //StopCoroutine(Type());
             dialogueBox.text = sentence;
         }
         else // si il a fini, change de phrase
@@ -56,6 +55,10 @@ public class DialogueManager : MonoBehaviour {
                         theRem.faces.Add(m_dialogue.addFace);
                     }
                     foreach (string face in theRem.faces) { Debug.Log(face); }
+                }
+                if (m_dialogue.trigger != 0)
+                {
+                    GameObject.Find("TheReminder").GetComponent<TriggerReminder>().trigger[m_dialogue.trigger]=true;
                 }
                 EndDialogue();
                 return;
