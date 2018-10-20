@@ -31,6 +31,10 @@ public class Player_movment : MonoBehaviour {
     {
         // Move character
         controller.Move(horizontalMove*Time.fixedDeltaTime, jump);
+        if (jump)
+        {
+            GetComponent<Animator>().SetTrigger("Jump");
+        }
         jump = false;
     }
 }

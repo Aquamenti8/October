@@ -31,7 +31,7 @@ public class WarpTo : MonoBehaviour {
             Quit.SetActive(false);
             Enter.SetActive(true);
 
-            GMto.CenterBGs(SolTo);
+            if(GMto!= null) GMto.CenterBGs(SolTo);
         }
     }
 }

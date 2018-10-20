@@ -12,6 +12,7 @@ public class CharacterController2D : MonoBehaviour
 	[SerializeField] private Collider2D m_CrouchDisableCollider;				// A collider that will be disabled when crouching
 
 
+
     private SpriteRenderer mySpriteRenderer;
 
     const float k_GroundedRadius = .02f; // Radius of the overlap circle to determine if grounded
@@ -39,6 +40,7 @@ public class CharacterController2D : MonoBehaviour
             OnLandEvent = new UnityEvent();
     }
 
+    private float remY;
 	private void FixedUpdate()
 	{
 		bool wasGrounded = m_Grounded;
@@ -56,7 +58,24 @@ public class CharacterController2D : MonoBehaviour
 					OnLandEvent.Invoke();
 			}
 		}
-	}
+
+        if (remY < this.transform.position.y)
+        {
+            GetComponent<Animator>().SetInteger("VerticalSpeed", -1);
+        }
+        else if (remY > this.transform.position.y)
+        {
+            GetComponent<Animator>().SetInteger("VerticalSpeed", 1);
+        }
+        else
+        {
+            GetComponent<Animator>().SetInteger("VerticalSpeed", 0);
+
+        }
+        remY = this.transform.position.y;
+        GetComponent<Animator>().SetBool("Grounded", m_Grounded);
+        
+    }
 
 
 	public void Move(float move, bool jump)

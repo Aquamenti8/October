@@ -9,6 +9,8 @@ public class NPC_Dalima : MonoBehaviour {
     public float HearRange = 2;
     public float TalkRange = 0.5f;
 
+    private bool flip = false;
+
     public void TriggerDialogue(Dialogue t_dialogue)
     {
         if (t_dialogue != null)
@@ -47,9 +49,43 @@ public class NPC_Dalima : MonoBehaviour {
             }
         }
 
+        //JOUEUR TALKRANGE = PICKUPCIRCLE.nearNPC = "Dalima"
+        if ((Vector2.Distance(this.transform.position, player.transform.position) < TalkRange))
+        {
+            GameObject.Find("ActionCollider").GetComponent<PickupCircle>().nearNPC = "Dalima";
+            GetComponent<Animator>().SetBool("InTalkRange", true);
+        }
+        else {
+            if (GameObject.Find("ActionCollider").GetComponent<PickupCircle>().nearNPC == "Dalima") {
+                GameObject.Find("ActionCollider").GetComponent<PickupCircle>().nearNPC = "";
+            }
+            GetComponent<Animator>().SetBool("InTalkRange", false);
+        }
+
+        //JOUEUR TALKRANGE + INVENTORY OPEN + CLICK = ANIM GIVE + ANIM RECEIVE + RETIRE UN OBJET + CHOOSE DIALOGUE bouffe
+
+
+
+        //JOUEUR A DROITE flip = false JOUEUR A GAUCHE flip = true
+
+        bool remFlip = GetComponent<Animator>().GetBool("Flip");
+
+        if ((player.transform.position.x < this.transform.position.x))
+        {
+
+            GetComponent<Animator>().SetBool("Flip",false);
+        }
+        else if ((player.transform.position.x > this.transform.position.x))
+        {
+            GetComponent<Animator>().SetBool("Flip",true);
+        }
+        if(remFlip != GetComponent<Animator>().GetBool("Flip"))
+        {
+            GetComponent<Animator>().SetTrigger("Flipobso");
+        }
         //TEXTE VIDE + CONV ON = CONV OFF
         if (dia.dialogueBox.text == "" && convOn) {
-            convOn = false; }
+        convOn = false; }
 
 
         //JOUEUR LOIN = END CONV

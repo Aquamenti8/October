@@ -22,6 +22,8 @@ public class PickupCircle : MonoBehaviour {
     public Text debugText;
 
     private MenuBehaviour menuB;
+
+    public string nearNPC = "";
   
     //Detect objects
     void OnTriggerStay2D(Collider2D other)
@@ -43,6 +45,8 @@ public class PickupCircle : MonoBehaviour {
                 this.GetComponent<MenuBehaviour>().UpdateSprite();
                 
                 Debug.Log("Collect!");
+
+                player.GetComponent<Animator>().SetTrigger("Pickup");
             }
         }
         else
@@ -56,6 +60,7 @@ public class PickupCircle : MonoBehaviour {
         activeMenu = "";
         theReminder = GameObject.Find("TheReminder").GetComponent<InventoryReminder>();
         menuB = this.GetComponent<MenuBehaviour>();
+        player = GameObject.Find("Player");
     }
 
     //GetInputs
@@ -68,6 +73,10 @@ public class PickupCircle : MonoBehaviour {
             menuB.RollMenu();
             menuB.UpdateSprite();
             
+        }
+        if (nearNPC != "")
+        {
+            debugText.text = "Talk to " + nearNPC;
         }
 
         if (Input.GetMouseButtonDown(1)) //OPEN MENU
@@ -84,7 +93,13 @@ public class PickupCircle : MonoBehaviour {
         if (activeMenu == "Inventory")
         {
             if (menuB.Inv.item.Count == menuB.current) {debugText.text = "Empty";}
-            else{debugText.text = menuB.Inv.item[menuB.current];}
+            else{
+                debugText.text = menuB.Inv.item[menuB.current];
+                if (nearNPC != "")
+                {
+                    debugText.text = "Give "+ menuB.Inv.item[menuB.current];
+                }
+            }
 
             if(Input.GetMouseButtonDown(0)){
 
@@ -138,7 +153,9 @@ public class PickupCircle : MonoBehaviour {
                 }
             }
         }
-        if (activeMenu == "" && !questionMark.activeSelf)
+
+
+        if (activeMenu == "" && !questionMark.activeSelf && nearNPC == "")
         {
             debugText.text = "";
         }
