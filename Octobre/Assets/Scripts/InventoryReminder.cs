@@ -122,4 +122,50 @@ public class InventoryReminder : MonoBehaviour {
         Debug.Log("clear!");
 
     }
+
+
+    public void GiveCollectable(int currentindex)
+    {
+        if (quantity.Count > 0)
+        {
+            if (quantity[currentindex] > 0)
+            {
+                GameObject player = GameObject.Find("Player");
+                GameObject collectablePref = null;
+                switch (item[currentindex])
+                {
+                    case "Carrot":
+                        collectablePref = Carrot;
+                        break;
+                    case "Cherry":
+                        collectablePref = Cherry;
+                        break;
+                }
+                //retire current item de l'inventaire
+                if (quantity[currentindex] == 1)
+                {
+                    item.RemoveAt(currentindex);
+                    quantity.RemoveAt(currentindex);
+                }
+                else if (quantity[currentindex] > 1)
+                {
+                    quantity[currentindex] -= 1;
+                }
+                foreach (string data in item) { Debug.Log(data); }
+                foreach (int data in quantity) { Debug.Log(data); }
+
+                //fait top une instance de l'objet dans les mains du joueur
+
+                int ImpulseSign;
+                if (player.GetComponent<SpriteRenderer>().flipX) ImpulseSign = -1;
+                else ImpulseSign = 1;
+                GameObject pop = Instantiate(collectablePref, new Vector3(player.transform.position.x+0.2f*ImpulseSign, player.transform.position.y-0.08f, 0), Quaternion.identity);
+                pop.transform.parent = GameObject.Find("Player").transform;
+                pop.GetComponent<Rigidbody2D>().isKinematic = true;
+
+                //donne une impulsion au l'objet si le joueur presse droite ou gauche en meme temps
+            }
+        }
+    }
 }
+

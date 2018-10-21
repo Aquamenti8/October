@@ -11,6 +11,8 @@ public class NPC_Dalima : MonoBehaviour {
 
     private bool flip = false;
 
+    private string ReceivedCol = "";
+
     public void TriggerDialogue(Dialogue t_dialogue)
     {
         if (t_dialogue != null)
@@ -29,7 +31,7 @@ public class NPC_Dalima : MonoBehaviour {
 
     private void Update()
     {
-        this.GetComponent<Animator>().SetBool("ConvOn", convOn);
+        //this.GetComponent<Animator>().SetBool("ConvOn", convOn);
         DialogueManager dia = FindObjectOfType<DialogueManager>();
         GameObject player = GameObject.FindGameObjectWithTag("Player");
 
@@ -43,7 +45,7 @@ public class NPC_Dalima : MonoBehaviour {
         //JOUEUR TALKRANGE + CLICK = LANCE CONV
         if ((Vector2.Distance(this.transform.position, player.transform.position) < TalkRange) && (Input.GetMouseButtonDown(0) == true && (!convOn)))
         {
-            if ((GameObject.Find("ActionCollider").GetComponent<PickupCircle>().activeMenu == "") && (!GameObject.Find("ActionCollider").GetComponent<PickupCircle>().calling))
+            if ((GameObject.Find("ActionCollider").GetComponent<PickupCircle>().activeMenu == "") && (!GameObject.Find("ActionCollider").GetComponent<PickupCircle>().calling) && !player.GetComponent<Player_movment>().dontMove)
             {
                 TriggerDialogue(ChooseDialogue("self"));
             }
@@ -63,16 +65,22 @@ public class NPC_Dalima : MonoBehaviour {
         }
 
         //JOUEUR TALKRANGE + INVENTORY OPEN + CLICK = ANIM GIVE + ANIM RECEIVE + RETIRE UN OBJET + CHOOSE DIALOGUE bouffe
-
+        if ((Vector2.Distance(this.transform.position, player.transform.position) < TalkRange))
+        {
+            if(GameObject.Find("ActionCollider").GetComponent<PickupCircle>().giving == true)
+            {
+                Debug.Log("player is giving!");
+                StartCoroutine("Receive");
+                //attend ,recupere l'instance de l'objet, attend, detruit l'objet et lance un dialogue
+                //attend ,recupere l'instance de l'objet, attend, detruit l'objet et lance un dialogue
+            }
+        }
 
 
         //JOUEUR A DROITE flip = false JOUEUR A GAUCHE flip = true
-
-        bool remFlip = GetComponent<Animator>().GetBool("Flip");
-
+            bool remFlip = GetComponent<Animator>().GetBool("Flip");
         if ((player.transform.position.x < this.transform.position.x))
         {
-
             GetComponent<Animator>().SetBool("Flip",false);
         }
         else if ((player.transform.position.x > this.transform.position.x))
@@ -83,6 +91,7 @@ public class NPC_Dalima : MonoBehaviour {
         {
             GetComponent<Animator>().SetTrigger("Flipobso");
         }
+
         //TEXTE VIDE + CONV ON = CONV OFF
         if (dia.dialogueBox.text == "" && convOn) {
         convOn = false; }
@@ -116,6 +125,8 @@ public class NPC_Dalima : MonoBehaviour {
     public Dialogue dia_kolimo3;
     public Dialogue dia_dalima;
 
+    public Dialogue dia_receive;
+
     private Dialogue ChooseDialogue(string who) //de qui on parle: self ou callingname
     {
         Dialogue tempDia = dialogue;
@@ -136,9 +147,53 @@ public class NPC_Dalima : MonoBehaviour {
                         break;
                 }
             case "Dalima": tempDia = dia_dalima; break;
+
+            case "Collectable":
+                {
+                    switch (ReceivedCol)
+                    {
+                        case "Cherry": tempDia = dia_receive; break;
+                        default: tempDia = dia_receive; break;
+                    }
+                    break;
+                }
             default: tempDia = null; break;
         }
 
         return tempDia;
+    }
+
+    IEnumerator Receive()
+    {
+        //recupere l'instance de l'objet, attend, detruit l'objet et lance un dialogue
+        Transform t = GameObject.Find("Player").transform;
+        Transform pop = null;
+        for (int i = 0; i < t.childCount; i++)
+        {
+            if (t.GetChild(i).gameObject.tag == "Collectable")
+            {
+                pop = t.GetChild(i);
+            }
+
+        }
+        pop.position = new Vector2(this.transform.position.x, this.transform.position.y);
+
+        GetComponent<Animator>().SetBool("Giving", true);
+
+        yield return new WaitForSeconds(0.5f);
+
+        ReceivedCol = pop.gameObject.GetComponent<ITEM>().collectable.name;
+
+        Destroy(pop.gameObject);
+        GetComponent<Animator>().SetBool("Giving", false);
+        GameObject.Find("ActionCollider").GetComponent<PickupCircle>().giving = false;
+        GameObject.Find("Player").GetComponent<Player_movment>().dontMove = false;
+
+        GameObject.Find("Player").GetComponent<Animator>().SetBool("Giving", false);
+
+
+        TriggerDialogue(ChooseDialogue("Collectable"));
+        ReceivedCol = "";
+
     }
 }

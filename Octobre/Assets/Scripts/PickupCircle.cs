@@ -24,6 +24,7 @@ public class PickupCircle : MonoBehaviour {
     private MenuBehaviour menuB;
 
     public string nearNPC = "";
+    public bool giving = false;
   
     //Detect objects
     void OnTriggerStay2D(Collider2D other)
@@ -103,11 +104,27 @@ public class PickupCircle : MonoBehaviour {
 
             if(Input.GetMouseButtonDown(0)){
 
-                theReminder.UseCollectable(menuB.current);
-                menuB.RollMenu();
-                menuB.UpdateSprite();
-                activeMenu = "";
-                Menu.SetActive(false);
+                if (nearNPC != "")
+                {
+                    if (menuB.Inv.item.Count != menuB.current)
+                    {
+                        StartCoroutine("Give");
+                        theReminder.GiveCollectable(menuB.current);
+                        player.GetComponent<Player_movment>().dontMove = true;
+                        menuB.RollMenu();
+                        menuB.UpdateSprite();
+                        activeMenu = "";
+                        Menu.SetActive(false);
+                    }
+                }
+                else
+                {
+                    theReminder.UseCollectable(menuB.current);
+                    menuB.RollMenu();
+                    menuB.UpdateSprite();
+                    activeMenu = "";
+                    Menu.SetActive(false);
+                }
             }
 
         }
@@ -160,10 +177,14 @@ public class PickupCircle : MonoBehaviour {
             debugText.text = "";
         }
 
-
-
-
     }
 
+    IEnumerator Give()
+    {
+        player.GetComponent<Animator>().SetBool("Giving", true);
+        yield return new WaitForSeconds(0.5f);
+        giving = true;
+        Debug.Log("giving");
+    }
 
 }
