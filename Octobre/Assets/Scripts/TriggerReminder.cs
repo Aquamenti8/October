@@ -14,5 +14,6 @@ public class TriggerReminder : MonoBehaviour {
         trigger[2] = false; // DalimaDia2
         trigger[3] = false; // Dalima hear about Kolimo 1 time
         trigger[4] = false; // Dalima hear about Kolimo x time, you don't kwnow Kolimo
+        trigger[5] = false; // MorganaDia1
     }
 }

@@ -9,8 +9,6 @@ public class NPC_Dalima : MonoBehaviour {
     public float HearRange = 2;
     public float TalkRange = 0.5f;
 
-    private bool flip = false;
-
     private string ReceivedCol = "";
 
     public void TriggerDialogue(Dialogue t_dialogue)
@@ -71,8 +69,6 @@ public class NPC_Dalima : MonoBehaviour {
             {
                 Debug.Log("player is giving!");
                 StartCoroutine("Receive");
-                //attend ,recupere l'instance de l'objet, attend, detruit l'objet et lance un dialogue
-                //attend ,recupere l'instance de l'objet, attend, detruit l'objet et lance un dialogue
             }
         }
 
@@ -87,10 +83,7 @@ public class NPC_Dalima : MonoBehaviour {
         {
             GetComponent<Animator>().SetBool("Flip",true);
         }
-        if(remFlip != GetComponent<Animator>().GetBool("Flip"))
-        {
-            GetComponent<Animator>().SetTrigger("Flipobso");
-        }
+  
 
         //TEXTE VIDE + CONV ON = CONV OFF
         if (dia.dialogueBox.text == "" && convOn) {

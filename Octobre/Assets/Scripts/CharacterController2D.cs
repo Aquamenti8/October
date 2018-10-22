@@ -15,7 +15,7 @@ public class CharacterController2D : MonoBehaviour
 
     private SpriteRenderer mySpriteRenderer;
 
-    const float k_GroundedRadius = .02f; // Radius of the overlap circle to determine if grounded
+    const float k_GroundedRadius = .01f; // Radius of the overlap circle to determine if grounded
 	public bool m_Grounded;            // Whether or not the player is grounded.
 	const float k_CeilingRadius = .02f; // Radius of the overlap circle to determine if the player can stand up
 	private Rigidbody2D m_Rigidbody2D;
@@ -109,7 +109,7 @@ public class CharacterController2D : MonoBehaviour
 		}
 
         // STAIR TEST
-        if (m_Grounded && move == 0)
+        if (m_Grounded && move == 0 && !jump && !(Input.GetButton("Jump")))
         {
             m_Rigidbody2D.constraints = RigidbodyConstraints2D.FreezePositionY | RigidbodyConstraints2D.FreezeRotation;
         }

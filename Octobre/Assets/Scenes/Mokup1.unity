@@ -631,6 +631,10 @@ Prefab:
       propertyPath: m_UseFullKinematicContacts
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4430070224909950, guid: 14c194ee4a5c8a948bb60883675e1971, type: 2}
+      propertyPath: m_LocalPosition.y
+      value: -0.251
+      objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 61906218692497454, guid: 14c194ee4a5c8a948bb60883675e1971, type: 2}
   m_SourcePrefab: {fileID: 100100000, guid: 14c194ee4a5c8a948bb60883675e1971, type: 2}
@@ -2183,8 +2187,10 @@ MonoBehaviour:
     addFace: 
     trigger: 0
   dia_dalima:
-    sentences: []
-    typingSpeed: 0
+    sentences:
+    - My name is Dalima. I lived here for long I can remember.
+    - I love cakes and trees and leaves and Ko-...Coffee!
+    typingSpeed: 0.02
     addFace: 
     trigger: 0
   dia_receive:
@@ -8804,7 +8810,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1253030663}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 9.495655, y: 1.9069474, z: -10}
+  m_LocalPosition: {x: 9.495575, y: 1.9069474, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 266228400}
@@ -8996,6 +9002,8 @@ GameObject:
   - component: {fileID: 1304327811}
   - component: {fileID: 1304327814}
   - component: {fileID: 1304327813}
+  - component: {fileID: 1304327815}
+  - component: {fileID: 1304327816}
   m_Layer: 0
   m_Name: PnjMorgana
   m_TagString: Untagged
@@ -9102,6 +9110,70 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 2.1, y: 2.28}
   m_EdgeRadius: 0
+--- !u!114 &1304327815
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1304327810}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8ae83e2a967dc874fa601a56fe587a54, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  HearRange: 5
+  TalkRange: 2.5
+  dialogue:
+    sentences:
+    - Ooooh what do we have here.... Humpf, human... Human are not good, not good.
+    - Lucky human, no one will eat you.
+    - Don't be shy. Approch and speak. Morgana will do you no wrong.
+    typingSpeed: 0.02
+    addFace: Morgana
+    trigger: 0
+  dia_unknown:
+    sentences: []
+    typingSpeed: 0.02
+    addFace: 
+    trigger: 0
+  dia_keeper:
+    sentences: []
+    typingSpeed: 0.02
+    addFace: 
+    trigger: 0
+  dia_kolimo:
+    sentences: []
+    typingSpeed: 0.02
+    addFace: 
+    trigger: 0
+  dia_dalima:
+    sentences: []
+    typingSpeed: 0.02
+    addFace: 
+    trigger: 0
+  dia_receive:
+    sentences: []
+    typingSpeed: 0.02
+    addFace: 
+    trigger: 0
+--- !u!95 &1304327816
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1304327810}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 62614396924c15847af23c4d9782cb1a, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &1316722539
 GameObject:
   m_ObjectHideFlags: 0
@@ -10378,7 +10450,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1714990932}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.47377014, y: 0.20256084, z: -10}
+  m_LocalPosition: {x: 0.47371632, y: 0.20256084, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 254649561}
@@ -15725,7 +15797,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1973561892}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -2.2320664, y: 0.7978588, z: -9.988281}
+  m_LocalPosition: {x: -2.2321203, y: 0.7978588, z: -9.988281}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1295744149}

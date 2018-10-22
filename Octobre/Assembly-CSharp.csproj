@@ -75,6 +75,7 @@
     <Compile Include="Assets\Scripts\MoveScene.cs" />
     <Compile Include="Assets\Scripts\NPC.cs" />
     <Compile Include="Assets\Scripts\NPC_Dalima.cs" />
+    <Compile Include="Assets\Scripts\NPC_Morgana.cs" />
     <Compile Include="Assets\Scripts\Parallaxing.cs" />
     <Compile Include="Assets\Scripts\PickupCircle.cs" />
     <Compile Include="Assets\Scripts\Player_movment.cs" />
