@@ -14,9 +14,11 @@ public class WarpTo : MonoBehaviour {
     public Parallaxing GMto;
     public GameObject SolTo;
 
+    private BlackTransition BlackUI;
+
     // Use this for initialization
     void Start () {
-		
+        BlackUI = GameObject.Find("Black").GetComponent<BlackTransition>();
 	}
 
     private void OnTriggerEnter2D(Collider2D other)
@@ -24,14 +26,23 @@ public class WarpTo : MonoBehaviour {
         if (other.CompareTag("Player"))
         {
 
-            GameObject.Find("Player").transform.position = new Vector2 (destinationXX, destinationYX);
-            //switch cinemachine
-            camTo.gameObject.SetActive(true) ;
-            camFrom.gameObject.SetActive(false);
-            Quit.SetActive(false);
-            Enter.SetActive(true);
+            BlackUI.FadeBlack();
 
-            if(GMto!= null) GMto.CenterBGs(SolTo);
+            StartCoroutine("waitThenWarp");
+
+            
         }
+    }
+    IEnumerator waitThenWarp()
+    {
+
+        yield return new WaitForSeconds(0.5f);
+        GameObject.Find("Player").transform.position = new Vector2(destinationXX, destinationYX);
+        //switch cinemachine
+        if (GMto != null) GMto.CenterBGs(SolTo);
+        camTo.gameObject.SetActive(true);
+        camFrom.gameObject.SetActive(false);
+        Quit.SetActive(false);
+        Enter.SetActive(true);
     }
 }

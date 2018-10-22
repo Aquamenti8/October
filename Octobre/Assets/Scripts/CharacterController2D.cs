@@ -78,12 +78,7 @@ public class CharacterController2D : MonoBehaviour
         GetComponent<Animator>().SetBool("Grounded", m_Grounded);
 
 
-        // STAIR TEST
-        if (m_Grounded)
-        {
-            m_Rigidbody2D.gravityScale = 0;
-        }
-        else { m_Rigidbody2D.gravityScale = 2; }
+
     }
 
 
@@ -112,7 +107,14 @@ public class CharacterController2D : MonoBehaviour
                 m_Rigidbody2D.AddForce(new Vector2(0f, m_JumpForce));
             }
 		}
-	}
+
+        // STAIR TEST
+        if (m_Grounded && move == 0)
+        {
+            m_Rigidbody2D.constraints = RigidbodyConstraints2D.FreezePositionY | RigidbodyConstraints2D.FreezeRotation;
+        }
+        else { m_Rigidbody2D.constraints = RigidbodyConstraints2D.FreezeRotation; }
+    }
 
 
 	private void Flip()

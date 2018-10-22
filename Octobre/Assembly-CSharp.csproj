@@ -62,6 +62,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\Scripts\BehaviourBernard.cs" />
+    <Compile Include="Assets\Scripts\BlackTransition.cs" />
     <Compile Include="Assets\Scripts\BugCinemachine.cs" />
     <Compile Include="Assets\Scripts\CameraDetectPlayer.cs" />
     <Compile Include="Assets\Scripts\CharacterController2D.cs" />
@@ -80,9 +81,9 @@
     <Compile Include="Assets\Scripts\PNJ_base.cs" />
     <Compile Include="Assets\Scripts\SceneManage.cs" />
     <Compile Include="Assets\Scripts\SpiritBehaviour.cs" />
+    <Compile Include="Assets\Scripts\SpiritRadar.cs" />
     <Compile Include="Assets\Scripts\TriggerReminder.cs" />
     <Compile Include="Assets\Scripts\WarpTo.cs" />
-    <Compile Include="Assets\SpiritRadar.cs" />
     <None Include="Assets\TextMesh Pro\Resources\Shaders\TMP_SDF-Surface-Mobile.shader" />
     <None Include="Assets\TextMesh Pro\Resources\LineBreaking Leading Characters.txt" />
     <None Include="Assets\TextMesh Pro\Resources\Shaders\TMPro_Properties.cginc" />
