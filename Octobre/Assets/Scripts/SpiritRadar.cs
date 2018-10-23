@@ -24,6 +24,8 @@ public class SpiritRadar : MonoBehaviour {
         {
             behaviour.state = 2;
             behaviour.target = collision.gameObject;
+            behaviour.gameObject.GetComponent<Animator>().SetBool("run", true);
+            behaviour.gameObject.GetComponent<Animator>().SetBool("lost", false);
         }
     }
 }

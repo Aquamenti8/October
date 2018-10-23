@@ -24,6 +24,7 @@ public class PickupCircle : MonoBehaviour {
     private MenuBehaviour menuB;
 
     public string nearNPC = "";
+    public string nearWarp = "";
     public bool giving = false;
   
     //Detect objects
@@ -79,7 +80,10 @@ public class PickupCircle : MonoBehaviour {
         {
             debugText.text = "Talk to " + nearNPC;
         }
-
+        if( nearWarp != "")
+        {
+            debugText.text = "Go to " + nearWarp;
+        }
         if (Input.GetMouseButtonDown(1)) //OPEN MENU
         {
             if (activeMenu == "") {
@@ -167,12 +171,15 @@ public class PickupCircle : MonoBehaviour {
                 if (menuB.current == 2) // si c'est SLEEP
                 {
                     //SLEEP
+                    player.GetComponent<Animator>().SetTrigger("Sleep");
+                    activeMenu = "";
+                    Menu.SetActive(false);
                 }
             }
         }
 
 
-        if (activeMenu == "" && !questionMark.activeSelf && nearNPC == "")
+        if (activeMenu == "" && !questionMark.activeSelf && nearNPC == "" && nearWarp =="")
         {
             debugText.text = "";
         }

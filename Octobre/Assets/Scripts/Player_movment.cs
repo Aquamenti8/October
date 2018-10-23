@@ -33,17 +33,32 @@ public class Player_movment : MonoBehaviour {
         }
 	}
 
+
+    private float InactivityCountdown;
+
     void FixedUpdate()
     {
         // Move character
         if (!dontMove)
         {
+            InactivityCountdown -= Time.deltaTime;
+            if(horizontalMove!=0 || jump)
+            {
+                InactivityCountdown = Random.Range(5, 15);
+            }
             controller.Move(horizontalMove * Time.fixedDeltaTime, jump);
             if (jump)
             {
                 GetComponent<Animator>().SetTrigger("Jump");
             }
             jump = false;
+
+            if (InactivityCountdown < 0)
+            {
+                GetComponent<Animator>().SetBool("Inactive", true);
+            }
+            else GetComponent<Animator>().SetBool("Inactive", false);
+
         }
     }
 }

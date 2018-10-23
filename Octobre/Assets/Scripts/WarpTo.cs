@@ -19,6 +19,8 @@ public class WarpTo : MonoBehaviour {
     // Use this for initialization
     void Start () {
         BlackUI = GameObject.Find("Black").GetComponent<BlackTransition>();
+
+        GetComponent<SpriteRenderer>().enabled = false;
 	}
 
     private void OnTriggerEnter2D(Collider2D other)

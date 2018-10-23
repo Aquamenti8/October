@@ -96,6 +96,8 @@ public class SpiritBehaviour : MonoBehaviour {
 
         if(state == 2) //OBJECT IN RANGE = GO TAKE COLLECTABLE
         {
+            GetComponent<Animator>().SetBool("run", true);
+            GetComponent<Animator>().SetBool("lost", false);
             if (target != null)
             {
                 if (target.transform.position.x > this.transform.position.x)
@@ -108,6 +110,8 @@ public class SpiritBehaviour : MonoBehaviour {
                 Vector2 targetVelocity = new Vector2(move * speed, m_Rigidbody2D.velocity.y);
 
                 m_Rigidbody2D.velocity = targetVelocity;
+
+                
 
                 if (Vector3.Distance(target.transform.position, transform.position) < 0.02f)
                 {
@@ -124,6 +128,8 @@ public class SpiritBehaviour : MonoBehaviour {
 
         if (state == 3) //COLLECTABLE GET = RETURN BUSH
         {
+            GetComponent<Animator>().SetBool("run", true);
+            GetComponent<Animator>().SetBool("lost", false);
             if (bush.transform.position.x > this.transform.position.x)
             {
                 move = 1;
@@ -139,7 +145,7 @@ public class SpiritBehaviour : MonoBehaviour {
 
             m_Rigidbody2D.velocity = targetVelocity;
 
-            if(Vector3.Distance(bush.transform.position, transform.position ) < 0.05f)
+            if(Vector3.Distance(bush.transform.position, transform.position ) < 0.2f)
             {
                 state = 4;
                 GetComponent<BoxCollider2D>().isTrigger = true;
@@ -150,11 +156,21 @@ public class SpiritBehaviour : MonoBehaviour {
             }
         }
 		
+        if(state == 4)
+        {
+            GetComponent<Animator>().SetBool("run", false);
+            GetComponent<Animator>().SetBool("lost", false);
+        }
         if (state == 5) // COLLECTABLE LOST = CHECK FOR COLLECTABLE THEN RETURN BUSH
         {
+            GetComponent<Animator>().SetBool("run", false);
+            GetComponent<Animator>().SetBool("lost", true);
             countdown -= Time.deltaTime;
+
             if (countdown <= 0)
             {
+                GetComponent<Animator>().SetBool("run", true);
+                GetComponent<Animator>().SetBool("lost", false);
                 if (bush.transform.position.x > this.transform.position.x)
                 {
                     move = 1;
@@ -170,7 +186,7 @@ public class SpiritBehaviour : MonoBehaviour {
 
                 m_Rigidbody2D.velocity = targetVelocity;
 
-                if (Vector3.Distance(bush.transform.position, transform.position) < 0.05f)
+                if (Vector3.Distance(bush.transform.position, transform.position) < 0.2f)
                 {
                     state = 1;
                     GetComponent<BoxCollider2D>().isTrigger = true;
