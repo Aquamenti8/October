@@ -80,6 +80,9 @@ public class MenuBehaviour : MonoBehaviour {
     public Sprite Mask0;
     public Sprite Mask1;
     public Sprite Mask2;
+    public Sprite Mask3;
+    public Sprite Mask4;
+    public Sprite Mask5;
 
     public Sprite Call;
     public Sprite Inventory;
@@ -400,10 +403,19 @@ public class MenuBehaviour : MonoBehaviour {
                     SlotTemp.GetComponent<SpriteRenderer>().sprite = Mask0;
                     break;
                 case "Kolimo":
-                    SlotTemp.GetComponent<SpriteRenderer>().sprite = Mask1;
+                    SlotTemp.GetComponent<SpriteRenderer>().sprite = Mask3;
                     break;
                 case "Keeper":
-                SlotTemp.GetComponent<SpriteRenderer>().sprite = Mask2;
+                SlotTemp.GetComponent<SpriteRenderer>().sprite = Mask1;
+                    break;
+                case "Dalima":
+                    SlotTemp.GetComponent<SpriteRenderer>().sprite = Mask2;
+                    break;
+                case "Cleo":
+                    SlotTemp.GetComponent<SpriteRenderer>().sprite = Mask5;
+                    break;
+                case "Morgana":
+                    SlotTemp.GetComponent<SpriteRenderer>().sprite = Mask4;
                     break;
         }
     }

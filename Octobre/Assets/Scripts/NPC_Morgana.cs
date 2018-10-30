@@ -22,7 +22,7 @@ public class NPC_Morgana : MonoBehaviour {
             float playerSign = 0.8f;
             if ((this.transform.position.x > GameObject.Find("Player").transform.position.x)) playerSign = -0.8f;
 
-            FindObjectOfType<DialogueManager>().dialogueBox.rectTransform.position = new Vector3(this.transform.position.x + 5f * playerSign, this.transform.position.y -0.5f, 0);
+            FindObjectOfType<DialogueManager>().dialogueBox.rectTransform.position = new Vector3(this.transform.position.x + 2f * playerSign, this.transform.position.y -0.5f, 0);
         }
     }
 
@@ -39,7 +39,7 @@ public class NPC_Morgana : MonoBehaviour {
         }
 
         //JOUEUR TALKRANGE + CLICK = LANCE CONV
-        if ((Vector2.Distance(this.transform.position, player.transform.position) < TalkRange) && (Input.GetMouseButtonDown(0) == true && (!convOn)))
+        if ((Vector2.Distance(this.transform.position, player.transform.position) < TalkRange) && (Input.GetMouseButtonDown(0) == true && (!convOn)) && GameObject.Find("ActionCollider").GetComponent<PickupCircle>().callingName == "")
         {
             if ((GameObject.Find("ActionCollider").GetComponent<PickupCircle>().activeMenu == "") && (!GameObject.Find("ActionCollider").GetComponent<PickupCircle>().calling) && !player.GetComponent<Player_movment>().dontMove)
             {
@@ -98,13 +98,14 @@ public class NPC_Morgana : MonoBehaviour {
         }
     }
     public Dialogue dialogue;
-
+    public Dialogue dialogue2;
 
     public Dialogue dia_unknown;
     public Dialogue dia_keeper;
     public Dialogue dia_kolimo;
+    public Dialogue dia_kolimo2; 
     public Dialogue dia_dalima;
-
+    public Dialogue dia_morgana;
     public Dialogue dia_receive;
 
     private Dialogue ChooseDialogue(string who) //de qui on parle: self ou callingname
@@ -117,6 +118,7 @@ public class NPC_Morgana : MonoBehaviour {
             case "self":
                 {
                     tempDia = dialogue;
+                    if (trig[14]) tempDia = dialogue2;
                     break;
                 }
             case "Unknown": tempDia = dia_unknown; break;
@@ -124,9 +126,11 @@ public class NPC_Morgana : MonoBehaviour {
             case "Kolimo":
                 {
                     tempDia = dia_kolimo;
+                    if (trig[13]) tempDia = dia_kolimo2;
                     break;
                 }
             case "Dalima": tempDia = dia_dalima; break;
+            case "Morgana": tempDia = dia_morgana; break;
 
             case "Collectable":
                 {
@@ -167,7 +171,7 @@ public class NPC_Morgana : MonoBehaviour {
         Destroy(pop.gameObject);
         GetComponent<Animator>().SetBool("Giving", false);
         GameObject.Find("ActionCollider").GetComponent<PickupCircle>().giving = false;
-        GameObject.Find("Player").GetComponent<Player_movment>().dontMove = false;
+        GameObject.Find("Player").GetComponent<Player_movment>().cutscene = false;
 
         GameObject.Find("Player").GetComponent<Animator>().SetBool("Giving", false);
 

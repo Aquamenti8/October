@@ -27,11 +27,12 @@ public class WarpTo : MonoBehaviour {
     {
         if (other.CompareTag("Player"))
         {
+            if (!GameObject.Find("Player").GetComponent<Player_movment>().thinking)
+            {
+                BlackUI.FadeBlack();
 
-            BlackUI.FadeBlack();
-
-            StartCoroutine("waitThenWarp");
-
+                StartCoroutine("waitThenWarp");
+            }
             
         }
     }

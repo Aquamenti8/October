@@ -56,6 +56,7 @@ public class DialogueManager : MonoBehaviour {
                     }
                     foreach (string face in theRem.faces) { Debug.Log(face); }
                 }
+                // ADD TRIGGER!
                 if (m_dialogue.trigger != 0)
                 {
                     GameObject.Find("TheReminder").GetComponent<TriggerReminder>().trigger[m_dialogue.trigger]=true;

@@ -27,8 +27,6 @@ public class SpiritBehaviour : MonoBehaviour {
 
     private Rigidbody2D m_Rigidbody2D;
     private float move = 1;
-    private float m_MovementSmoothing = .05f;
-    private Vector3 m_Velocity = Vector3.zero;
 
     public GameObject player;
     public GameObject radar;

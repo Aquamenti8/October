@@ -7,8 +7,6 @@ using UnityEngine.UI;
 public class PickupCircle : MonoBehaviour {
 
 
-    [SerializeField] private GameObject questionMark;
-
     private GameObject player;
     private GameObject actionCollider;
 
@@ -17,6 +15,7 @@ public class PickupCircle : MonoBehaviour {
     public string activeMenu;
 
     public bool calling;
+    public bool callingtwo;
     public string callingName;
 
     public Text debugText;
@@ -25,6 +24,7 @@ public class PickupCircle : MonoBehaviour {
 
     public string nearNPC = "";
     public string nearWarp = "";
+    public bool nearObject = false;
     public bool giving = false;
   
     //Detect objects
@@ -32,7 +32,6 @@ public class PickupCircle : MonoBehaviour {
     {
         if (other.CompareTag("Collectable"))
         {
-            questionMark.SetActive(true);
             debugText.text = "Pick " + other.gameObject.GetComponent<ITEM>().collectable.name;
             //Collect object
             if (Input.GetMouseButtonDown(0))
@@ -49,11 +48,12 @@ public class PickupCircle : MonoBehaviour {
                 Debug.Log("Collect!");
 
                 player.GetComponent<Animator>().SetTrigger("Pickup");
+                nearObject = true;
             }
         }
         else
         {
-            questionMark.SetActive(false);
+            nearObject = false;
         }
     }
 
@@ -63,6 +63,7 @@ public class PickupCircle : MonoBehaviour {
         theReminder = GameObject.Find("TheReminder").GetComponent<InventoryReminder>();
         menuB = this.GetComponent<MenuBehaviour>();
         player = GameObject.Find("Player");
+        player.GetComponent<Animator>().SetTrigger("Sleep");
     }
 
     //GetInputs
@@ -78,13 +79,17 @@ public class PickupCircle : MonoBehaviour {
         }
         if (nearNPC != "")
         {
-            debugText.text = "Talk to " + nearNPC;
+            if (theReminder.faces.Contains(nearNPC))
+            {
+                debugText.text = "Talk to " + nearNPC;
+            }
+            else debugText.text = "Talk to ????";
         }
         if( nearWarp != "")
         {
             debugText.text = "Go to " + nearWarp;
         }
-        if (Input.GetMouseButtonDown(1)) //OPEN MENU
+        if (Input.GetMouseButtonDown(1) && !player.GetComponent<Player_movment>().charging && !player.GetComponent<Player_movment>().cutscene && !player.GetComponent<Player_movment>().thinking) //OPEN MENU
         {
             if (activeMenu == "") {
                 Menu.SetActive(true);
@@ -133,7 +138,7 @@ public class PickupCircle : MonoBehaviour {
 
         }
 
-        if (calling) { calling = false; callingName = ""; }
+        
 
         if (activeMenu == "Call") {
             debugText.text = menuB.Inv.faces[menuB.current];
@@ -141,12 +146,16 @@ public class PickupCircle : MonoBehaviour {
             {
                 activeMenu = "";
                 Menu.SetActive(false);
-                calling = true;
                 callingName = menuB.Inv.faces[menuB.current];
-
+                StartCoroutine("CallEffect");
+                
 
             }
         }
+
+        if (callingtwo) { calling = false; callingName = ""; callingtwo = false; }
+        if (calling) { callingtwo = true; }
+        
 
         if (activeMenu == "Main")
         {
@@ -173,13 +182,14 @@ public class PickupCircle : MonoBehaviour {
                     //SLEEP
                     player.GetComponent<Animator>().SetTrigger("Sleep");
                     activeMenu = "";
+                    player.GetComponent<Player_movment>().sleep = true;
                     Menu.SetActive(false);
                 }
             }
         }
 
 
-        if (activeMenu == "" && !questionMark.activeSelf && nearNPC == "" && nearWarp =="")
+        if (activeMenu == "" && nearNPC == "" && nearWarp =="" && !nearObject)
         {
             debugText.text = "";
         }
@@ -192,6 +202,58 @@ public class PickupCircle : MonoBehaviour {
         yield return new WaitForSeconds(0.5f);
         giving = true;
         Debug.Log("giving");
+    }
+
+    public GameObject CallEffectGM;
+    IEnumerator CallEffect()
+    {
+        // RECUP LE MASK ID, le fou sur le sprite renderer de l'objet call effect
+        string name = callingName;
+        Sprite mask = null;
+        switch (name)
+        {
+            case "Unknown":
+                mask = menuB.Mask0;
+                break;
+            case "Kolimo":
+                mask = menuB.Mask3;
+                break;
+            case "Keeper":
+                mask = menuB.Mask1;
+                break;
+            case "Dalima":
+                mask = menuB.Mask2;
+                break;
+            case "Cleo":
+                mask = menuB.Mask5;
+                break;
+            case "Morgana":
+                mask = menuB.Mask4;
+                break;
+        }
+        SpriteRenderer CaEffSp = CallEffectGM.GetComponent<SpriteRenderer>();
+        CaEffSp.sprite = mask;
+        CallEffectGM.SetActive(true);
+        //while a>0 le faire grandir et disparaitre
+        CallEffectGM.transform.localScale = new Vector2(1, 1);
+        float a = 1;
+        float scalePas = 0.2f;
+        float aSpeed = 2;
+        while (a > 0)
+        {
+            CallEffectGM.transform.localScale = new Vector2(CallEffectGM.transform.localScale.x+scalePas, CallEffectGM.transform.localScale.y+scalePas);
+            CaEffSp.color = new Color(1, 1, 1, a);
+            a -= Time.deltaTime* aSpeed;
+            yield return new WaitForSeconds(0.01f);
+        }
+        
+
+        calling = true;
+        callingName = name;
+        Debug.Log("call");
+        CallEffectGM.SetActive(false);
+        yield return new WaitForSeconds(0.01f);
+
     }
 
 }

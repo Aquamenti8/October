@@ -16,12 +16,12 @@ public class NPC_Dalima : MonoBehaviour {
         if (t_dialogue != null)
         {
             FindObjectOfType<DialogueManager>().StartDialogue(t_dialogue);
-            FindObjectOfType<DialogueManager>().dialogueBox.alignment = TextAnchor.LowerLeft;
+            //FindObjectOfType<DialogueManager>().dialogueBox.alignment = TextAnchor.LowerLeft;
 
             convOn = true;
 
             float playerSign = 0.8f;
-            if ((this.transform.position.x > GameObject.Find("Player").transform.position.x)) playerSign = -0.8f;
+            //if ((this.transform.position.x > GameObject.Find("Player").transform.position.x)) playerSign = -0.8f;
 
             FindObjectOfType<DialogueManager>().dialogueBox.rectTransform.position = new Vector3(this.transform.position.x + 0.8f * playerSign, this.transform.position.y + 0.2f, 0);
         }
@@ -41,9 +41,9 @@ public class NPC_Dalima : MonoBehaviour {
         }
 
         //JOUEUR TALKRANGE + CLICK = LANCE CONV
-        if ((Vector2.Distance(this.transform.position, player.transform.position) < TalkRange) && (Input.GetMouseButtonDown(0) == true && (!convOn)))
+        if ((Vector2.Distance(this.transform.position, player.transform.position) < TalkRange) && (Input.GetMouseButtonDown(0) == true && (!convOn)) && GameObject.Find("ActionCollider").GetComponent<PickupCircle>().callingName =="")
         {
-            if ((GameObject.Find("ActionCollider").GetComponent<PickupCircle>().activeMenu == "") && (!GameObject.Find("ActionCollider").GetComponent<PickupCircle>().calling) && !player.GetComponent<Player_movment>().dontMove)
+            if ((GameObject.Find("ActionCollider").GetComponent<PickupCircle>().activeMenu == "") && (!GameObject.Find("ActionCollider").GetComponent<PickupCircle>().calling) && !player.GetComponent<Player_movment>().dontMove && !player.GetComponent<Player_movment>().thinking)
             {
                 TriggerDialogue(ChooseDialogue("self"));
             }
@@ -74,7 +74,6 @@ public class NPC_Dalima : MonoBehaviour {
 
 
         //JOUEUR A DROITE flip = false JOUEUR A GAUCHE flip = true
-            bool remFlip = GetComponent<Animator>().GetBool("Flip");
         if ((player.transform.position.x < this.transform.position.x))
         {
             GetComponent<Animator>().SetBool("Flip",false);
@@ -116,6 +115,8 @@ public class NPC_Dalima : MonoBehaviour {
     public Dialogue dia_kolimo;
     public Dialogue dia_kolimo2;
     public Dialogue dia_kolimo3;
+    public Dialogue dia_kolimo4;
+    public Dialogue dia_kolimo5;
     public Dialogue dia_dalima;
 
     public Dialogue dia_receive;
@@ -137,7 +138,9 @@ public class NPC_Dalima : MonoBehaviour {
                     tempDia = dia_kolimo;
                     if (trig[3]) tempDia = dia_kolimo2;
                     if (trig[4]) tempDia = dia_kolimo3;
-                        break;
+                    if (trig[8]) tempDia = dia_kolimo4;
+                    if (trig[9]) tempDia = dia_kolimo5;
+                    break;
                 }
             case "Dalima": tempDia = dia_dalima; break;
 
@@ -180,7 +183,7 @@ public class NPC_Dalima : MonoBehaviour {
         Destroy(pop.gameObject);
         GetComponent<Animator>().SetBool("Giving", false);
         GameObject.Find("ActionCollider").GetComponent<PickupCircle>().giving = false;
-        GameObject.Find("Player").GetComponent<Player_movment>().dontMove = false;
+        GameObject.Find("Player").GetComponent<Player_movment>().cutscene = false;
 
         GameObject.Find("Player").GetComponent<Animator>().SetBool("Giving", false);
 
