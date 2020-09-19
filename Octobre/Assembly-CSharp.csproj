@@ -61,6 +61,8 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\CineCutChange.cs" />
+    <Compile Include="Assets\LibraryAppear.cs" />
     <Compile Include="Assets\Scripts\BehaviourBernard.cs" />
     <Compile Include="Assets\Scripts\BlackTransition.cs" />
     <Compile Include="Assets\Scripts\BugCinemachine.cs" />
@@ -77,6 +79,7 @@
     <Compile Include="Assets\Scripts\MenuBehaviour.cs" />
     <Compile Include="Assets\Scripts\MoveScene.cs" />
     <Compile Include="Assets\Scripts\NPC.cs" />
+    <Compile Include="Assets\Scripts\NPC_Cleo.cs" />
     <Compile Include="Assets\Scripts\NPC_Dalima.cs" />
     <Compile Include="Assets\Scripts\NPC_Kolimo.cs" />
     <Compile Include="Assets\Scripts\NPC_Morgana.cs" />

@@ -155,7 +155,7 @@ public class BlackTransition : MonoBehaviour {
         GameObject.Find("Player").GetComponent<Player_movment>().thinking = true;
         GetComponent<Image>().color = new Color(0, 0, 0, 0.3f);
         string txt = "Where am I?";
-        string txt2 = "Where is 'he'";
+        string txt2 = "Where is.... 'that person'?";
         TextPP.GetComponent<Text>().text = "";
 
         yield return new WaitForSeconds(0.5f);
@@ -170,7 +170,7 @@ public class BlackTransition : MonoBehaviour {
             TextPP.GetComponent<Text>().color = new Color(1, 1, 1, al);
             yield return new WaitForSeconds(Time.deltaTime);
         }
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(1.5f);
         //Fade text
         al = 1;
         TextPP.GetComponent<Text>().color = new Color(1, 1, 1, al);
@@ -192,7 +192,7 @@ public class BlackTransition : MonoBehaviour {
             TextPP.GetComponent<Text>().color = new Color(1, 1, 1, al);
             yield return new WaitForSeconds(Time.deltaTime);
         }
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(1.5f);
 
 
         //Fade text2
@@ -363,4 +363,49 @@ public class BlackTransition : MonoBehaviour {
         GetComponent<Image>().color = new Color(0, 0, 0, 0f);
         yield return new WaitForSeconds(0.5f);
     }
+    IEnumerator PP_CleoStory()
+    {
+        GameObject.Find("Player").GetComponent<Player_movment>().thinking = true;
+        float alp = 0f;
+        while (alp < 0.5f)
+        {
+            alp += Time.deltaTime ;
+            GetComponent<Image>().color = new Color(0, 0, 0, alp);
+            yield return new WaitForSeconds(Time.deltaTime);
+        }
+
+        GameObject.Find("PnjCleo").GetComponent<Animator>().SetBool("Talking", true);
+
+        string txt = "Once upon a time ....";
+        TextPP.GetComponent<Text>().text = "";
+
+        yield return new WaitForSeconds(1f);
+        //Draw text1
+        TextPP.GetComponent<Text>().text = txt;
+        float al = 0;
+        TextPP.GetComponent<Text>().color = new Color(1, 1, 1, al);
+        while (al < 1)
+        {
+            al += Time.deltaTime ;
+            TextPP.GetComponent<Text>().color = new Color(1, 1, 1, al);
+            yield return new WaitForSeconds(Time.deltaTime);
+        }
+        yield return new WaitForSeconds(0.5f);
+
+        while (alp < 1f)
+        {
+            alp += Time.deltaTime/2;
+            GetComponent<Image>().color = new Color(0, 0, 0, alp);
+            yield return new WaitForSeconds(Time.deltaTime);
+        }
+        yield return new WaitForSeconds(2f);
+
+        GameObject.Find("PnjCleo").GetComponent<Animator>().SetBool("Talking", false);
+        TextPP.GetComponent<Text>().text = "";
+        TextPP.GetComponent<Text>().color = new Color(1, 1, 1, 1);
+        GameObject.Find("Player").GetComponent<Player_movment>().thinking = false;
+        GetComponent<Image>().color = new Color(0, 0, 0, 0f);
+        yield return new WaitForSeconds(0.5f);
+    }
+
 }

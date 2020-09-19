@@ -22,12 +22,21 @@ public class NPC_Morgana : MonoBehaviour {
             float playerSign = 0.8f;
             if ((this.transform.position.x > GameObject.Find("Player").transform.position.x)) playerSign = -0.8f;
 
-            FindObjectOfType<DialogueManager>().dialogueBox.rectTransform.position = new Vector3(this.transform.position.x + 2f * playerSign, this.transform.position.y -0.5f, 0);
+            FindObjectOfType<DialogueManager>().dialogueBox.rectTransform.position = new Vector3(this.transform.position.x + 2f * playerSign, this.transform.position.y -0.2f, 0);
         }
     }
+    bool appear;
 
     private void Update()
     {
+        if (!appear)
+        {
+            if (Vector2.Distance(GameObject.Find("Player").transform.position, this.gameObject.transform.position) < 3)
+            {
+                GetComponent<Animator>().SetTrigger("Appear");
+                appear = true;
+            }
+        }
         DialogueManager dia = FindObjectOfType<DialogueManager>();
         GameObject player = GameObject.FindGameObjectWithTag("Player");
 

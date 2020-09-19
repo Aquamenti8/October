@@ -20,7 +20,7 @@ public class Player_movment : MonoBehaviour {
 
 	// Update is called once per frame
 	void Update () {
-
+       
         if (!dontMove)
         {
             if (!thinking)
@@ -61,7 +61,17 @@ public class Player_movment : MonoBehaviour {
         {
             dontMove = true;
         }
-	}
+
+        /*
+       GetComponent<SpriteRenderer>().color = new Color(1, 1,1);
+
+       if(GameObject.Find("CACHOT").activeSelf == true) {
+           GetComponent<SpriteRenderer>().color = new Color(164f/255f, 185f/255f, 217f/255f);
+       }
+       else if (GameObject.Find("RUINS").activeSelf == true) { GetComponent<SpriteRenderer>().color = new Color(251f / 255f, 239f / 255f, 200f / 255f); }
+       */
+
+    }
 
 
     private float InactivityCountdown = 5f;

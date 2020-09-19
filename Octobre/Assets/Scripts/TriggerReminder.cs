@@ -29,10 +29,13 @@ public class TriggerReminder : MonoBehaviour {
         trigger[16] = false; //First dialogue with keeper
         trigger[17] = false; // Keeper warn he's going to leave
         trigger[18] = false; // Keeper left to the abyss
+        trigger[19] = false; //Cleo accept to tell the story
     }
 
     private bool PP_DalimaWants;
     private bool PP_KolimoSusp;
+    private bool PP_CleoStory;
+
     private void Update()
     {
         if (trigger[9]&& !PP_DalimaWants)
@@ -44,6 +47,11 @@ public class TriggerReminder : MonoBehaviour {
         {
             GameObject.Find("Black").GetComponent<BlackTransition>().StartCoroutine("PP_KolimoSusp");
             PP_KolimoSusp = true;
+        }
+        if (trigger[19] && !PP_CleoStory)
+        {
+            GameObject.Find("Black").GetComponent<BlackTransition>().StartCoroutine("PP_CleoStory");
+            PP_CleoStory = true;
         }
     }
 }
